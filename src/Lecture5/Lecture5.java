@@ -5,11 +5,11 @@ public class Lecture5 {
         //forLoop();
         //nestedForLoop();
         //whileLoop();
-        //doWhileLoop();
+        doWhileLoop();
         //forEachLoop();
         //continueStatement();
         //breakStatementWhileLoop();
-        breakStatementDoWhileLoop();
+        //breakStatementDoWhileLoop();
     }
     public static void forLoop(){
         System.out.println("First For");
@@ -52,6 +52,15 @@ public class Lecture5 {
             System.out.println(num);
             num++;
         }while (num>10);
+
+        // showcase counter control
+        int count = 0;
+        int numInc= 1;
+        do {
+            numInc++;
+            System.out.println("Our number is with value + 1 and now is: "+ numInc);
+            count++;
+        }while (count<10 && numInc<14);
     }
     public static void forEachLoop(){
         int[] num= {2,45,24,65};
