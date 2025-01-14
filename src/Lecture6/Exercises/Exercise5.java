@@ -9,8 +9,8 @@ public class Exercise5 {
         Scanner scanner = new Scanner(System.in);
         List<String> tasks = new ArrayList<>();
         List<Boolean> completed = new ArrayList<>();
-
-        while (true) {
+        boolean isMenuActive = true;
+        while (isMenuActive) {
             System.out.println("\nTo-Do List Menu:");
             System.out.println("1. Add Task");
             System.out.println("2. Mark Task as Completed");
@@ -57,7 +57,9 @@ public class Exercise5 {
                 case 5:
                     System.out.println("Exiting To-Do List. Goodbye!");
                     scanner.close();
-                    return;
+                    //return;
+                    isMenuActive=false;
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
