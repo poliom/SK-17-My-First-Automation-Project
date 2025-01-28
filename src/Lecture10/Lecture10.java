@@ -2,6 +2,7 @@ package Lecture10;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Lecture10 {
@@ -15,14 +16,15 @@ public class Lecture10 {
 //            System.out.println("Exception message: " + exceptionMessage);
 //        }
 //       illegalArgumentException(7);
-        String path = "src/Lecture10/text1.txt";
-        openFile(path);
+        //String path = "src/Lecture10/text1.txt";
+        //openFile(path);
 ////        System.out.println(parseStringToInt("23"));
 ////        System.out.println(parseStringToInt("Two"));
-        multipleCatch("2");
-        multipleCatch("two");
+        //multipleCatch("2");
+        //multipleCatch("two");
 //        getMoney(300);
 //        getMoney(1000);
+        questionDemo();
     }
     public static void arithmeticException(){
         try{
@@ -53,10 +55,9 @@ public class Lecture10 {
         }catch (FileNotFoundException exceptionMessage){
             System.out.println("File not found");
         }finally {
-            if (scanner == null){
-                return;
+            if (scanner != null){
+                scanner.close();
             }
-            scanner.close();
         }
     }
 
@@ -92,9 +93,54 @@ public class Lecture10 {
 
     public static void catchThemAll(){
         try{
-
-        }catch (Exception exception){
+            throw new InputMismatchException("test");
+        } catch (InputMismatchException exception1) {
+            System.out.println("The expected input was not integer.");
+        } catch (Exception exception){
 
         }
+    }
+
+    public static void questionDemo(){
+
+        int count =0;
+        while (count<1) {
+            int number = getNumber();
+            if (number != -1){
+                count++;
+            }
+//            try {
+//                System.out.println("Enter an integer: ");
+//                int number = scanner.nextInt();
+//                System.out.println("You entered a number - " + number);
+//                break;
+//            } catch (InputMismatchException exception1) {
+//                System.out.println("The expected input was integer.");
+//                System.out.println("This is the Java runtime exception: " + exception1);
+//                System.out.println("Please try again to enter an integer: ");
+//                scanner.nextLine();
+//            }
+//            finally {
+//                scanner.close();
+//                //IllegalStateException: Scanner closed - will be generated
+//            }
+        }
+    }
+
+    private static int getNumber(){
+        int number = -1;
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.println("Enter an integer: ");
+            number = scanner.nextInt();
+            System.out.println("You entered a number - " + number);
+        } catch (InputMismatchException exception1) {
+            System.out.println("The expected input was not integer.");
+            System.out.println("This is the Java runtime exception: " + exception1);
+            System.out.println("Please try again to enter an integer: ");
+        }
+        scanner.close();
+
+        return number;
     }
 }
