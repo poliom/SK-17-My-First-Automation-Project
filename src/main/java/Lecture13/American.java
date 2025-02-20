@@ -14,3 +14,4 @@ public class American extends Person {
         System.out.println("I am celebrating Thanksgiving on the fourth Thursday in November.");
     }
 }
+
