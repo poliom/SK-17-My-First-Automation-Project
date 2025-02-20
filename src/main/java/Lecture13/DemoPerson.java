@@ -17,5 +17,6 @@ public class DemoPerson {
         Dido.celebrateEaster();
         Dido.isAdult();
         System.out.println("Can " + Dido.getName() + " take a loan: " + Dido.canTakeLoan());
+        American american = new American("Jhon","male","Catholic","QA","9305264585","America");
     }
 }

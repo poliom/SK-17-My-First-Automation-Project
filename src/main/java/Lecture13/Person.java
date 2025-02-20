@@ -1,8 +1,5 @@
 package Lecture13;
 
-import javax.swing.text.html.parser.Parser;
-import java.text.DateFormat;
-
 public class Person {
 
     public Person(String EGN, String sex, String name, String religion, String languageSpoken, String job, String nationality, String countryOfresidence){
