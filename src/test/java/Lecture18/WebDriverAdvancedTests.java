@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import javax.swing.*;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebDriverAdvancedTests {
@@ -164,11 +165,48 @@ public class WebDriverAdvancedTests {
         this.webDriver.get("https://webdriveruniversity.com/Popup-Alerts/index.html");
         this.webDriver.findElement(By.id("button4")).click();
 
-        Alert alert = webDriver.switchTo().alert();
+        Alert alert = this.webDriver.switchTo().alert();
         System.out.println(alert.getText());
         //alert.accept();
         alert.dismiss();
 
         System.out.println(this.webDriver.findElement(By.id("confirm-alert-text")).getText());
+    }
+
+    @Test
+    public void testWindows() {
+        this.webDriver.get("https://demoqa.com/browser-windows");
+        WebElement button = this.webDriver.findElement(By.id("tabButton"));
+        button.click();
+
+        String currentURL = this.webDriver.getCurrentUrl();
+        Assert.assertEquals(currentURL, "https://demoqa.com/browser-windows");
+
+        List<String> windows = new ArrayList<>(this.webDriver.getWindowHandles());
+
+        String secondWindow = windows.get(1);
+        this.webDriver.switchTo().window(secondWindow);
+
+        currentURL = this.webDriver.getCurrentUrl();
+        Assert.assertEquals(currentURL, "https://demoqa.com/sample");
+    }
+
+    @Test
+    public void testIFrame(){
+        this.webDriver.get("https://demoqa.com/frames");
+
+        WebElement h1Title = this.webDriver.findElement(By.tagName("h1"));
+        Assert.assertEquals(h1Title.getText(), "Frames");
+
+//        this.webDriver.switchTo().frame("frame1");
+//        Assert.assertEquals(h1Title.getText(), "This is a sample page");
+
+        this.webDriver.switchTo().frame("frame2");
+        h1Title = this.webDriver.findElement(By.tagName("h1"));
+        Assert.assertEquals(h1Title.getText(), "This is a sample page");
+
+        this.webDriver.switchTo().defaultContent();
+        h1Title = this.webDriver.findElement(By.tagName("h1"));
+        Assert.assertEquals(h1Title.getText(), "Frames");
     }
 }
