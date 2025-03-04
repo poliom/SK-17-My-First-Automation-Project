@@ -27,7 +27,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-!**/src/main/test/resources/download
-!**/src/main/test/resources/reports
-!**/src/main/test/resources/screenshot
