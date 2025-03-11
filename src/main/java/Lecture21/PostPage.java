@@ -3,6 +3,8 @@ package Lecture21;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,16 +15,26 @@ import java.util.NoSuchElementException;
 public class PostPage {
     public static final String PAGE_URL = "http://training.skillo-bg.com:4200/posts/create";
     private final WebDriver webDriver;
+    @FindBy(css = "img.image-preview")
+    private WebElement postImage;
+    @FindBy(css = "input.input-lg")
+    private WebElement postImageTextElement;
+    @FindBy(css = ".file[type='file']")
+    private WebElement uploadField;
+    @FindBy(name = "caption")
+    private WebElement captionElement;
+    @FindBy(id = "create-post")
+    private WebElement createPostButton;
 
     public PostPage(WebDriver driver) {
         this.webDriver = driver;
+        PageFactory.initElements(webDriver, this);
     }
 
     public boolean isImageVisible() {
         try {
-            WebElement image = webDriver.findElement(By.cssSelector("img.image-preview"));
             WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-            return wait.until(ExpectedConditions.visibilityOf(image)).isDisplayed();
+            return wait.until(ExpectedConditions.visibilityOf(postImage)).isDisplayed();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             return false;
@@ -30,23 +42,18 @@ public class PostPage {
     }
 
     public String getImageName() {
-        WebElement imageTextElement = webDriver.findElement(By.cssSelector("input.input-lg"));
-        String imageName = imageTextElement.getAttribute("placeholder");
-        return imageName;
+        return postImageTextElement.getAttribute("placeholder");
     }
 
     public void uploadPicture(File file) {
-        WebElement uploadField = webDriver.findElement(By.cssSelector(".file[type='file']"));
         uploadField.sendKeys(file.getAbsolutePath());
     }
 
     public void populatePostCaption(String caption) {
-        WebElement captionElement = webDriver.findElement(By.name("caption"));
         captionElement.sendKeys(caption);
     }
 
     public void clickCreatePost() {
-        WebElement createPostButton = webDriver.findElement(By.id("create-post"));
         createPostButton.click();
     }
 

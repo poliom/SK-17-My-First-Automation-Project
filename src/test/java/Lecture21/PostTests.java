@@ -33,6 +33,11 @@ public class PostTests extends TestObject {
         Assert.assertTrue(homePage.isUrlLoaded(), "The Home URL is not correct!");
 
         Header header = new Header(driver);
+        header.clickProfileLinkWithHandle();
+
+        ProfilePage profilePage = new ProfilePage(driver);
+        int countPosts = profilePage.getPostCount();
+
         header.clickNewPostLinkWithHandle();
 
         PostPage postPage = new PostPage(driver);
@@ -43,14 +48,13 @@ public class PostTests extends TestObject {
         postPage.populatePostCaption(caption);
         postPage.clickCreatePost();
 
-        ProfilePage profilePage = new ProfilePage(driver);
         Assert.assertTrue(profilePage.isUrlLoaded(8335), "The Profile URL is not correct!");
-        //Assert.assertEquals(profilePage.getPostCount(), 1, "The number of Posts is incorrect!");
-        //profilePage.clickPost(0);
+        Assert.assertEquals(profilePage.getPostCount(), countPosts+1, "The number of Posts is incorrect!");
+        profilePage.clickPost(countPosts);
 
-        //PostModal postModal = new PostModal(driver);
-        //Assert.assertTrue(postModal.isImageVisible(), "The image is not visible!");
+        PostModal postModal = new PostModal(driver);
+        Assert.assertTrue(postModal.isImageVisible(), "The image is not visible!");
         //Assert.assertEquals(postModal.getPostTitle(), caption);
-        //Assert.assertEquals(postModal.getPostUser(), username);
+        Assert.assertEquals(postModal.getPostUser(), username);
     }
 }

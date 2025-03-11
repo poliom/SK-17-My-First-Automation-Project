@@ -11,7 +11,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginPage extends NavigationAndUrlValidation {
     public static final String PAGE_URL = "http://training.skillo-bg.com:4200/users/login";
     private final WebDriver webDriver;
     @FindBy(id="defaultLoginFormUsername")
@@ -31,21 +31,25 @@ public class LoginPage {
     }
 
     public boolean isUrlLoaded(){
-        WebDriverWait explicitWait = new WebDriverWait(this.webDriver, Duration.ofSeconds(10));
-        try{
-            explicitWait.until(ExpectedConditions.urlToBe(PAGE_URL));
-        }catch(TimeoutException ex) {
-            return false;
-        }
-        return true;
+//        WebDriverWait explicitWait = new WebDriverWait(this.webDriver, Duration.ofSeconds(10));
+//        try{
+//            explicitWait.until(ExpectedConditions.urlToBe(PAGE_URL));
+//        }catch(TimeoutException ex) {
+//            return false;
+//        }
+//        return true;
+        return super.isUrlLoaded(webDriver, PAGE_URL);
     }
 
     public void navigateTo(){
-        this.webDriver.get(PAGE_URL);
+        //this.webDriver.get(PAGE_URL);
+        super.navigateTo(webDriver,PAGE_URL);
     }
 
     public void populateUsername(String username){
         this.usernameField.sendKeys(username);
+        String typedUserName = this.usernameField.getText();
+        Assert.assertEquals(typedUserName, username, "Username is not typed correctly");
     }
 
     public void populatePassword(String password){
