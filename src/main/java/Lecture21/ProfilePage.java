@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class ProfilePage{
     public static final String PAGE_URL_WITHOUT_USER_ID = "http://training.skillo-bg.com:4200/users/";
@@ -16,6 +17,8 @@ public class ProfilePage{
 
     @FindBy(tagName = "h2")
     private WebElement usernameText;
+    @FindBy(xpath = "//*[@class='col-4 app-post ng-star-inserted']")
+    private List<WebElement> postAppPostItem;
 
     public ProfilePage(WebDriver webDriver){
         this.webDriver = webDriver;
@@ -41,5 +44,11 @@ public class ProfilePage{
             return false;
         }
         return true;
+    }
+    public int getPostCount(){
+        return postAppPostItem.size();
+    }
+    public void clickPost(int index){
+        postAppPostItem.get(index).click();
     }
 }

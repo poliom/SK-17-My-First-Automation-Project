@@ -86,9 +86,10 @@ public class LoginTests extends TestObject {
     }
 
     @Test(dataProvider = "errorMessages")
+    //@Parameters({"username","password","message"})
+    //@Test
     public void LoginErrorMessages(String username, String password, String signInMessageExpected){
         WebDriver webDriver = getDriver();
-
         // initial page objects definition
         LoginPage login = new LoginPage(webDriver);
 
